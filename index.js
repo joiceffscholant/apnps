@@ -11,6 +11,11 @@ app.get('/mensagem', function(req,res){
 
 })
 
+app.get('/sobre', function(req,res){
+    res.send("Está página está sendo desenvolvida por Joice.")
+
+})
+
 app.listen(3000, function(){
     console.log("conexão inicializada na porta 3000!")
 })
