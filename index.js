@@ -22,10 +22,10 @@ app.get('/', function(req,res){
 app.get('/usuarios', function(req,res){
     res.render('usuarios.ejs',{usuarios:[
 
-        {nome:'Joice', email:'joicescholant@outlook.com'},
+        {nome:'Joice', email:'joice@outlook.com'},
         {nome:'Amanda', email:'amanda@outlook.com'},
         {nome:'Maumau', email:'maumau@outlook.com'},
-        {nome:'Maria', email:'mariat@outlook.com'}
+        {nome:'Maria', email:'maria@outlook.com'}
 
     ]})
 
