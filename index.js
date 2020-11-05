@@ -19,6 +19,8 @@ app.get('/', function(req,res){
 
 })
 
+
+
 app.get('/usuarios', function(req,res){
     res.render('usuarios.ejs',{usuarios:[
 
@@ -28,6 +30,17 @@ app.get('/usuarios', function(req,res){
         {nome:'Maria', email:'maria@outlook.com'}
 
     ]})
+
+
+    app.get('/add', function(req,res){
+        res.render('adiciona.ejs')
+    
+    })
+
+    app.post('/add', function(req,res){
+        console.log("Nome: " + req.body.txtNome + " Email: " + req.body.txtEmail)
+    
+    })
 
 })
 
