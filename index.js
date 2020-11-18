@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var path = require('path')
+var Usuario = require('./model/usuario')
 
 
 
@@ -15,22 +16,11 @@ app.use(express.static(path.join(__dirname,"public")))
 
 
 app.get('/', function(req,res){
-    res.render('index.ejs',{})
+    Usuario.find({}).exec(function(err,docs){
+      res.render('index.ejs',{Usuarios:docs})
+    })
 
 })
-
-
-
-app.get('/usuarios', function(req,res){
-    res.render('usuarios.ejs',{usuarios:[
-
-        {nome:'Joice', email:'joice@outlook.com'},
-        {nome:'Amanda', email:'amanda@outlook.com'},
-        {nome:'Maumau', email:'maumau@outlook.com'},
-        {nome:'Maria', email:'maria@outlook.com'}
-
-    ]})
-
 
     app.get('/add', function(req,res){
         res.render('adiciona.ejs')
@@ -38,14 +28,35 @@ app.get('/usuarios', function(req,res){
     })
 
     app.post('/add', function(req,res){
-        console.log("Nome: " + req.body.txtNome + " Email: " + req.body.txtEmail)
+        var usuario = new Usuario({
+            nome: req.body.txtNome,
+            email: req.body.txtEmail,
+            senha: req.body.txtSenha,
+            foto: req.body.txtFoto,
+
+        })
+        usuario.save(function(err){
+
+            if(err){
+                console.log(err)
+            }else{
+                res.redirect('/');
+            }
+        })
     
     })
 
+
+app.get('/del/:id', function(req,res){
+    Usuario.findByIdAndDelete(req.params.id, function(err){
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect('/')
+        }
+    })
+    console.log(req.params.id)
 })
-
-
-
 app.listen(3000, function(){
     console.log("conexão inicializada na porta 3000!")
 })
